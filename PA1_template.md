@@ -67,7 +67,10 @@ tot_steps_per_day <-
 Make a histogram of the total number of steps taken each day:
 
 ```r
-hist(tot_steps_per_day$tot_steps, main = "Total Number of Steps per Day", xlab = "Number of Steps", col = "red", breaks = 30)
+hist(tot_steps_per_day$tot_steps, 
+     main = "Total Number of Steps per Day", 
+     xlab = "Number of Steps", col = "red", 
+     breaks = 30)
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
@@ -107,7 +110,10 @@ Make a time series plot of the 5-minute interval (x-axis) and the average number
 
 ```r
 with(avg_steps_per_interval,
-     plot(interval, avg, type="l", main="Average Daily Activity", xlab="5-min Interval", ylab="Average Number of Steps"))
+     plot(interval, avg, type="l", 
+          main="Average Daily Activity", 
+          xlab="5-min Interval", 
+          ylab="Average Number of Steps"))
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
@@ -167,7 +173,11 @@ tot_steps_per_day <-
   group_by(date) %>% 
   summarise(tot_steps = sum(steps))
 
-hist(tot_steps_per_day$tot_steps, main = "Total Number of Steps per Day", xlab = "Number of Steps", col = "red", breaks = 30)
+hist(tot_steps_per_day$tot_steps, 
+     main = "Total Number of Steps per Day", 
+     xlab = "Number of Steps", 
+     col = "red", 
+     breaks = 30)
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
@@ -197,7 +207,8 @@ Create a new factor variable in the dataset with two levels – “weekday” an
 ```r
 impute_activity <-
   impute_activity %>%
-  mutate(weekday = factor(if_else(weekdays(impute_activity$date) %in% c("Saturday","Sunday"), "weekend", "weekday")))
+  mutate(weekday = 
+           factor(if_else(weekdays(impute_activity$date) %in% c("Saturday","Sunday"), "weekend", "weekday")))
 ```
 
 Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis).
@@ -205,7 +216,14 @@ Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minut
 
 ```r
 library(ggplot2)
-qplot(interval, avg, data = impute_activity %>% group_by(interval, weekday) %>% summarise(avg = mean(steps)), facets = weekday ~ ., geom="line", xlab = "5-min Interval", ylab = "Number of Steps", col = weekday) + theme(legend.position="none") + ggtitle("Avg Daily Activity Across Weekdays/Weekends")
+qplot(interval, avg, 
+      data = impute_activity %>% group_by(interval, weekday) %>% summarise(avg = mean(steps)), 
+      facets = weekday ~ ., geom="line", 
+      xlab = "5-min Interval", 
+      ylab = "Number of Steps", 
+      col = weekday) + 
+  theme(legend.position="none") + 
+  ggtitle("Avg Daily Activity Across Weekdays/Weekends")
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-13-1.png)<!-- -->
